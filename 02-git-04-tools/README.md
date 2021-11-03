@@ -32,6 +32,6 @@ dd01a3507 Update CHANGELOG.md
 66ebff90c move some more plugin search path logic to command
 8364383c3 Push plugin discovery down into command package**
 7. Кто автор функции synchronizedWriters?  
-**commit 5ac311e2a91e381e2f52234668b49ba670aa0fe5
-Author: Martin Atkins <mart@degeneration.co.uk>
+**commit 5ac311e2a91e381e2f52234668b49ba670aa0fe5  
+Author: Martin Atkins <mart@degeneration.co.uk>  
 Date:   Wed May 3 16:25:41 2017 -0700**
