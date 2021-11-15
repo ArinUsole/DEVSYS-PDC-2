@@ -115,6 +115,8 @@ EXISTS
     bash is /tmp/new_path_directory/bash
     bash is /usr/local/bin/bash
     bash is /bin/bash
+```    
+  
 ```bash
     vagrant@vagrant:~$ mkdir /tmp/new_path_directory
     vagrant@vagrant:~$ ln -s /bin/bash /tmp/new_path_directory/bash
