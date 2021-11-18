@@ -20,3 +20,5 @@
 3.1. [x] [Работа в терминале (лекция 1)](03-sysadmin-01-terminal/README.md)
 
 3.2. [x] [Работа в терминале (лекция 2)](03-sysadmin-02-terminal/README.md)
+
+3.3. [х] [Операционные системы (лекция 1)](https://github.com/netology-code/sysadm-homeworks/tree/master/03-sysadmin-03-os)

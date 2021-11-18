@@ -14,10 +14,19 @@
     `ls /bla-bal-bal 2> /dev/pts/1`
 5. Получится ли одновременно передать команде файл на stdin и вывести ее stdout в другой файл? Приведите работающий пример.
 
-    `cat file1.txt>&1>file2.txt` или `cat file1.txt | cat > file2.txt`
+    `cat <file1.txt >file2.txt`
 6. Получится ли вывести находясь в графическом режиме данные из PTY в какой-либо из эмуляторов TTY? Сможете ли вы наблюдать выводимые данные?
 
-    `Нет прямой связи приложения терминала с std{in,out,err} shell`
+    ```bash
+    vagrant@vagrant:~$ w
+    14:53:13 up 48 min,  2 users,  load average: 0.00, 0.00, 0.00
+    USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+    vagrant  pts/0    10.0.2.2         14:23    0.00s  0.03s  0.00s w
+    vagrant  pts/1    10.0.2.2         14:37    9:32   0.01s  0.01s -bash
+    vagrant@vagrant:~$ echo Hello > /dev/pts/1
+
+    vagrant@vagrant:~$ Hello
+    ```
 7. Выполните команду `bash 5>&1`. К чему она приведет? Что будет, если вы выполните `echo netology > /proc/$$/fd/5`? Почему так происходит?
 
    ```bash
