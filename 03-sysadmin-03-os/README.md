@@ -42,16 +42,76 @@
     /usr/sbin/opensnoop-bpfcc
     ```
     На какие файлы вы увидели вызовы группы `open` за первую секунду работы утилиты? Воспользуйтесь пакетом `bpfcc-tools` для Ubuntu 20.04. Дополнительные [сведения по установке](https://github.com/iovisor/bcc/blob/master/INSTALL.md).
-6. Какой системный вызов использует `uname -a`? Приведите цитату из man по этому системному вызову, где описывается альтернативное местоположение в `/proc`, где можно узнать версию ядра и релиз ОС.
-7. Чем отличается последовательность команд через `;` и через `&&` в bash? Например:
-    ```bash
-    root@netology1:~# test -d /tmp/some_dir; echo Hi
-    Hi
-    root@netology1:~# test -d /tmp/some_dir && echo Hi
-    root@netology1:~#
-    ```
-    Есть ли смысл использовать в bash `&&`, если применить `set -e`?
-8. Из каких опций состоит режим bash `set -euxo pipefail` и почему его хорошо было бы использовать в сценариях?
-9. Используя `-o stat` для `ps`, определите, какой наиболее часто встречающийся статус у процессов в системе. В `man ps` ознакомьтесь (`/PROCESS STATE CODES`) что значат дополнительные к основной заглавной буквы статуса процессов. Его можно не учитывать при расчете (считать S, Ss или Ssl равнозначными).
 
- 
+   ```bash
+   openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libselinux.so.1", O_RDONLY|O_CLOEXEC) = 3
+   openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+   openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpcre2-8.so.0", O_RDONLY|O_CLOEXEC) = 3
+   openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3
+   openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3
+   ```
+6. Какой системный вызов использует `uname -a`? Приведите цитату из man по этому системному вызову, где описывается альтернативное местоположение в `/proc`, где можно узнать версию ядра и релиз ОС.
+
+   _uname - get name and information about current kernel_
+7. Чем отличается последовательность команд через `;` и через `&&` в bash? Например:
+   ```bash
+   root@netology1:~# test -d /tmp/some_dir; echo Hi
+   Hi
+   root@netology1:~# test -d /tmp/some_dir && echo Hi
+   root@netology1:~#
+   ```
+   Есть ли смысл использовать в bash `&&`, если применить `set -e`?
+
+   ```bash
+   A list is a sequence of one or more pipelines separated by one of the operators ;, &, &&, or ||, and optionally terminated by one of ;,  &,
+      or <newline>.
+   ...
+   command1 && command2
+   command2 is executed if, and only if, command1 returns an exit status of zero (success).
+   ...
+   set -e  Exit immediately if a command exits with a non-zero status.
+   ``` 
+   таким образом, использования `set -e` ни как не влияет на использование `&&`   
+8. Из каких опций состоит режим bash `set -euxo pipefail` и почему его хорошо было бы использовать в сценариях?
+
+   ```bash
+   -e  Exit immediately if a command exits with a non-zero status.
+   -u  Treat unset variables as an error when substituting.
+   -x  Print commands and their arguments as they are executed.
+   -o option-name
+        pipefail     the return value of a pipeline is the status of
+                     the last command to exit with a non-zero status,
+                     or zero if no command exited with a non-zero status
+   ```
+   удобная отладка сценариев.
+10. Используя `-o stat` для `ps`, определите, какой наиболее часто встречающийся статус у процессов в системе. В `man ps` ознакомьтесь (`/PROCESS STATE CODES`) что значат дополнительные к основной заглавной буквы статуса процессов. Его можно не учитывать при расчете (считать S, Ss или Ssl равнозначными).
+
+   ```bash
+   D    uninterruptible sleep (usually IO)
+   I    Idle kernel thread
+   R    running or runnable (on run queue)
+   S    interruptible sleep (waiting for an event to complete)
+   T    stopped by job control signal
+   t    stopped by debugger during the tracing
+   W    paging (not valid since the 2.6.xx kernel)
+   X    dead (should never be seen)
+   Z    defunct ("zombie") process, terminated but not reaped by its parent
+   ```
+   
+   ```bash
+   vagrant@vagrant:~$ ps ax o stat | sort | uniq -c
+     11 I
+     44 I<
+      1 R+
+     33 S
+      4 S+
+      1 Sl
+      1 SLsl
+      2 SN
+      1 S<s
+     16 Ss
+      2 Ss+
+      5 Ssl
+      1 STAT
+   ```
+   `S interruptible sleep (waiting for an event to complete)` наиболее часто встречающийся статус у процессов в системе
