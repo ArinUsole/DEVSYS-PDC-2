@@ -50,4 +50,4 @@ UNCONN          0               0                         vagrant%eth0:bootpc   
 ```
 5. Используя diagrams.net, создайте L3 диаграмму вашей домашней сети или любой другой сети, с которой вы работали. 
 
-[Диаграмма](https://yadi.sk/i/e5w1G_9I940jRA)
+[Диаграмма](https://yadi.sk/i/2c2OTzOZbrJa-w)
