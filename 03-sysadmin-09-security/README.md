@@ -3,12 +3,15 @@
 1. Установите Bitwarden плагин для браузера. Зарегестрируйтесь и сохраните несколько паролей.
 
 [Bitwarden плагин](https://yadi.sk/i/K0Byq0fIvXDWGA)
+
 2. Установите Google authenticator на мобильный телефон. Настройте вход в Bitwarden акаунт через Google authenticator OTP.
 
 [ДФА](https://yadi.sk/i/i-va-1KSZtuE0A)
+
 3. Установите apache2, сгенерируйте самоподписанный сертификат, настройте тестовый сайт для работы по HTTPS.
 
 [Сертификат](https://yadi.sk/i/HmgO8vfTxXHjDw)
+
 4. Проверьте на TLS уязвимости произвольный сайт в интернете.
 
 ```bash
