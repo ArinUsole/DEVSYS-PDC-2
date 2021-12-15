@@ -133,10 +133,10 @@ while (True):
     for host in hosts:
         ip = socket.gethostbyname(host)
         if (not hosts[host]):
-            print(f'{host} - {ip}')
+            print(f'<{host}> - <{ip}>')
             hosts[host] = ip
         elif (ip != hosts[host] and hosts[host]):
-            print(f'[ERROR] <{host}> IP mismatch: {hosts[host]} {ip}')
+            print(f'[ERROR] <{host}> IP mismatch: <{hosts[host]}> <{ip}>')
             hosts[host] = ip
     time.sleep(5)
 ```
@@ -144,10 +144,10 @@ while (True):
 ### Вывод скрипта при запуске при тестировании:
 ```bash
 vagrant@vagrant:~$ ./t1.sh
-drive.google.com - 142.250.150.194
-mail.google.com - 142.250.186.165
-google.com - 216.239.38.120
-[ERROR] <mail.google.com> IP mismatch: 142.250.186.165 173.194.73.83
-[ERROR] <mail.google.com> IP mismatch: 173.194.73.83 173.194.73.17
-[ERROR] <google.com> IP mismatch: 216.239.38.120 64.233.162.102
+<drive.google.com> - <142.250.150.194>
+<mail.google.com> - <142.250.186.165>
+<google.com> - <216.239.38.120>
+[ERROR] <mail.google.com> IP mismatch: <142.250.186.165> <173.194.73.83>
+[ERROR] <mail.google.com> IP mismatch: <173.194.73.83> <173.194.73.17>
+[ERROR] <google.com> IP mismatch: <216.239.38.120> <64.233.162.102>
 ```
