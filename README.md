@@ -7,11 +7,11 @@
 
 ## Модуль 2. Системы управления версиями
 
-2.1. [_] [Системы контроля версий](02-git-01-vcs/README.md)
+2.1. [x] [Системы контроля версий](02-git-01-vcs/README.md)
 
-2.2. [_] [Основы Git](02-git-02-base/README.md)
+2.2. [x] [Основы Git](02-git-02-base/README.md)
 
-2.3. [_] [Ветвления в Git](02-git-03-branching/README.md)
+2.3. [x] [Ветвления в Git](02-git-03-branching/README.md)
 
 2.4. [x] [Инструменты Git](02-git-04-tools/README.md)
 
@@ -38,3 +38,5 @@
 ## Модуль 4. Скриптовые языки и языки разметки: Python, Bash, YAML, JSON
 
 4.1. [х] [Командная оболочка Bash: практические навыки](04-script-01-bash/README.md)
+
+4.2. [x] [Использование Python для решения типовых DevOps задач](04-script-02-py/README.md)
