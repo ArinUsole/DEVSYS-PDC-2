@@ -40,3 +40,5 @@
 4.1. [х] [Командная оболочка Bash: практические навыки](04-script-01-bash/README.md)
 
 4.2. [x] [Использование Python для решения типовых DevOps задач](04-script-02-py/README.md)
+
+4.3. [x] [Языки разметки JSON и YAML](04-script-03-yaml/README.md)
