@@ -85,17 +85,55 @@ vagrant@vagrant:~$ vault write pki_int/roles/example-dot-com \
 max_ttl>      max_ttl="744h"
 Success! Data written to: pki_int/roles/example-dot-com
 ```
-~/new_cert.sh
+~/new_cert.sh - Скрипт генерации приватного ключа и сертификата сервера NGINX
 ```bash
 #!/usr/bin/env bash
 vault write -format=json pki_int/issue/example-dot-com common_name="test.example.com" ttl="744h" > cert.json
 jq -r '.data.private_key' ./cert.json > ./ssl/test.example.com.key
 jq -r '.data.certificate' ./cert.json > ./ssl/test.example.com.crt
 sudo service nginx restart
-
 ```
 - Процесс установки и настройки сервера nginx
-- Страница сервера nginx в браузере хоста не содержит предупреждений 
-- Скрипт генерации нового сертификата работает (сертификат сервера ngnix должен быть "зеленым")
-- Crontab работает (выберите число и время так, чтобы показать что crontab запускается и делает что надо)
+```bash
+vagrant@vagrant:~$ sudo apt-get install nginx -y
+vagrant@vagrant:~$ sudo vi /etc/nginx/sites-available/default
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
 
+        # SSL configuration
+        **listen 443 ssl default_server;
+        listen [::]:443 ssl default_server;**
+        #
+
+        root /var/www/html;
+
+        # Add index.php to the list if you are using PHP
+        index index.html index.htm index.nginx-debian.html;
+
+        **server_name test.example.com;
+        ssl_certificate     /home/vagrant/ssl/test.example.com.crt;
+        ssl_certificate_key /home/vagrant/ssl/test.example.com.key;
+        ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+        ssl_ciphers         HIGH:!aNULL:!MD5;**
+```
+- Страница сервера nginx в браузере хоста не содержит предупреждений 
+[test.example.com](https://disk.yandex.ru/i/I1KS412vOz57Cw)
+- Скрипт генерации нового сертификата работает (сертификат сервера ngnix должен быть "зеленым")
+```bash
+#!/usr/bin/env bash
+vault write -format=json pki_int/issue/example-dot-com common_name="test.example.com" ttl="744h" > cert.json
+jq -r '.data.private_key' ./cert.json > ./ssl/test.example.com.key
+jq -r '.data.certificate' ./cert.json > ./ssl/test.example.com.crt
+sudo service nginx restart
+```
+- Crontab работает (выберите число и время так, чтобы показать что crontab запускается и делает что надо)
+```bash
+vagrant@vagrant:~$ crontab -l
+# Edit this file to introduce tasks to be run by cron.
+# m h  dom mon dow   command
+16 10 * * * /home/vagrant/new_cert.sh >/dev/null 2>&1
+vagrant@vagrant:~$ grep CRON /var/log/syslog
+...
+Dec 27 10:16:01 vagrant CRON[1813]: (vagrant) CMD (/home/vagrant/new_cert.sh >/dev/null 2>&1)
+```
