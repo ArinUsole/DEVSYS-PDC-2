@@ -42,3 +42,5 @@
 4.2. [x] [Использование Python для решения типовых DevOps задач](04-script-02-py/README.md)
 
 4.3. [x] [Языки разметки JSON и YAML](04-script-03-yaml/README.md)
+
+5.1. [x] [Курсовая работа по итогам модуля "DevOps и системное администрирование"](pcs-devsys-diplom/README.md)
